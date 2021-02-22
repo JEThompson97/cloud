@@ -7,3 +7,5 @@ global.conf
 /assets/badwords
 /env
 /.vscode
+# NOTE: Not sure why this sessions folder + all it's content spawned..
+/sessions
