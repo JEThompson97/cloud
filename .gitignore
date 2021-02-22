@@ -3,7 +3,7 @@
 *~
 *.swp
 /tokens
-global.conf
+*.conf
 /assets/badwords
 /env
 /.vscode
