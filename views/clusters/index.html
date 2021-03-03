@@ -1,0 +1,50 @@
+{% set menufocus = "clusters" %}
+{% set title = "Clusters" %}
+
+{% extends "layout.html" %}
+
+{% if (countLimit is none) or (countLimit is not number) %}
+    {% set countLimit = 10 %}
+{% endif %}
+
+{% block javascript %}
+<script src="/assets/js/machines/openstack/listclusters.js"></script>
+
+<script>
+var WSHOSTNAME = "{{ wshostname }}";
+var WSPORT = "{{ wsport }}";
+var EMAIL = "{{ email }}";
+var CLOUDPLATFORM = "{{ cloudPlatform }}";
+
+if (CLOUDPLATFORM == "openstack"){
+    $(function() {
+        getClusters();
+    })
+} 
+
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+<h1>This will be the Clusters sections :)</h1>
+<div>
+    <p>Context:</p>
+    <ul>
+        <li>wshostname: {{wshostname}}</li>
+        <li>wsport: {{wsport}}</li>
+        <li>email: {{email}}</li>
+        <li>cloudPlatform: {{cloudPlatform}}</li>
+        <li>countLimit: {{countLimit}}</li>
+    </ul>
+</div>
+<div>
+    <p id="cluster-list">ha</p>
+    <!-- <table id="cluster-list" class="table">
+    </table> -->
+</div>
+<div>
+    <table id="cluster-table"></table>
+</div>
+{% endblock %}

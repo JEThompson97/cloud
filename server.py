@@ -49,8 +49,10 @@ if cloudPlatform == "opennebula":
     from controllers.api.opennebula.machines import Machines
 if cloudPlatform == "openstack":
     from controllers.api.openstack.machines import Machines
+    from controllers.api.openstack.clusters import Clusters
 
 home.machines = Machines()
+home.clusters = Clusters()
 cherrypy.tree.mount(home, "/", "config/pages.conf")
 
 # API
@@ -71,12 +73,15 @@ if cloudPlatform == "openstack":
     from controllers.api.openstack.flavors import Flavors
     from controllers.api.openstack.projects import Projects
     from controllers.api.openstack.rename import Rename
+    from controllers.api.openstack.cluster import Cluster
 
     api.flavors = Flavors()
     api.projects = Projects()
     api.rename = Rename()
     api.vnc = VNC()
+    api.cluster = Cluster()
 
+# I think this '/api' section is used by the JS (View) to call python scripts (Controller)
 api.vm = VM()
 api.quota = Quota()
 api.user = User()

@@ -10,6 +10,7 @@ class Projects(object):
 
     @cherrypy.tools.json_out()
     def GET(self):
+        #TODO: Replace these duplications of getSession
         KEYSTONE_URL = cherrypy.request.config.get("keystone")
         OPENSTACK_HOST = cherrypy.request.config.get("openstack_host")
         OPENSTACK_DEFAULT_DOMAIN = cherrypy.request.config.get("openstack_default_domain")

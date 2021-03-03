@@ -122,7 +122,7 @@ var fedid = Cookies.get('fedid');
 
 function drawTable(action) {
 
-    drawTableRequest = $.ajax({
+    drawTableRequest = $.ajax({ // Returns a 'deferred' object
         type: "GET",
         url: "/api/vm",
         data: {'action' : action},
@@ -138,8 +138,8 @@ function drawTable(action) {
                 exceptions("500", "getting VMs list.");
             }
         }
-    }).done(function(data) {
-
+    }).done(function(data) {    // Once deferred object resolved,
+                                //  runs function on it's output
         $('#all-vms').hide();
         vmlist.clear();
 
@@ -196,7 +196,7 @@ function drawTable(action) {
                     vmlist.column( 1 ).visible( false );
                 }
             } else {
-                if ($("#all-vms").hasClass('active')) {
+                if ($("#all-vms").hasClass('active')) { //? This condition is appears impossible?
                     $('#all-vms').show();
                     vmlist.column( 1 ).visible( true );
                 }
