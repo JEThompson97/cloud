@@ -7,15 +7,13 @@
     {% set countLimit = 10 %}
 {% endif %}
 
+{% block css %}
+<link rel="stylesheet" href="/assets/components/bootstrap/css/bootstrap-select-1.9.4.min.css" type="text/css" />
+<link rel="stylesheet" href="/assets/components/bootstrap/css/dataTables.bootstrap-1.10.10.min.css" type="text/css" />
+<link rel="stylesheet" href="/assets/css/machines/styles.css" type="text/css" />
+{% endblock %}
+
 {% block javascript %}
-<!-- Other -->
-<script src="/assets/components/bootstrap/js/bootstrap-select-1.9.4.min.js"></script>
-<script src="/assets/components/jquery/jquery.knob-1.2.11.min.js"></script>
-<script src="/assets/components/jquery/moment.js"></script>
-<!-- DataTables -->
-<script src="/assets/components/jquery/jquery.dataTables-1.10.10.min.js"></script>
-<script src="/assets/components/bootstrap/js/dataTables.bootstrap-1.10.10.min.js"></script>
-<script src="/assets/js/machines/openstack/listclusters.js"></script>
 
 <script>
 var WSHOSTNAME = "{{ wshostname }}";
@@ -30,29 +28,34 @@ if (CLOUDPLATFORM == "openstack"){
 } 
 
 </script>
+<!-- Other -->
+<script src="/assets/components/bootstrap/js/bootstrap-select-1.9.4.min.js"></script>
+<script src="/assets/components/jquery/jquery.knob-1.2.11.min.js"></script>
+<script src="/assets/components/jquery/moment.js"></script>
+<!-- DataTables -->
+<script src="/assets/components/jquery/jquery.dataTables-1.10.10.min.js"></script>
+<script src="/assets/components/bootstrap/js/dataTables.bootstrap-1.10.10.min.js"></script>
+
+{% if cloudPlatform == "openstack" %}
+    <script src="/assets/js/machines/openstack/listclusters.js"></script>
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
-
-<h1>This will be the Clusters sections :)</h1>
-
-<div class="tab-content">
-    <div class="tab-pane active">
-        <table id="cluster-list" class="table" cellspacing="0" width="100%">
-            <!-- -->
-            <thead>
-                <tr>
-                    {% include "/machines/%s/clustercolumntitles.html" % cloudPlatform %}
-                </tr>
-            </thead>
-            <!-- -->
-        </table>
-
+<!-- TODO: Take more functionality from Machines index -->
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">Clusters</h1>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <table id="cluster-list" class="table" cellspacing="0" width="100%"></table>
+            </div>
+        </div>
     </div>
 </div>
 
-
-<div>
+<!-- <div>
     <p>Context:</p>
     <ul>
         <li>wshostname: {{wshostname}}</li>
@@ -64,10 +67,10 @@ if (CLOUDPLATFORM == "openstack"){
 </div>
 <div>
     <p id="cluster-list">ha</p>
-    <!-- <table id="cluster-list" class="table">
-    </table> -->
+    <table id="cluster-list" class="table">
+    </table>
 </div>
 <div>
     <table id="cluster-table"></table>
-</div>
+</div> -->
 {% endblock %}

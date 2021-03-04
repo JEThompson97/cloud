@@ -1,19 +1,18 @@
-
-var clustertable = $('#cluster-list').DataTable();
+var clustertable = $('#cluster-list').DataTable({
+    "columns": [
+        { data: 'name', title: 'Name'},
+        { data: 'status', title: 'Status' },
+        { data: 'uuid', title: 'ID' },
+        { data: 'health_status', title: 'Health' },
+        { data: 'keypair', title: 'Key Pair' },
+        { data: 'master_count', title: 'Masters' },
+        { data: 'node_count', title: 'Nodes' },
+    ],
+    "dom": '<"top"f>t<"bottom"lpi><"clear">'    //Puts 'show x entries' dropdown below table
+});
 
 function drawClusterTable() {
-    //debugger;
-    // var clustertable = $('#cluster-list').DataTable( {
-    //         "ajax" : "/api/cluster",
-    //         "order": [
-    //             [4, "desc"]
-    //         ]
-    //     } )
-    // clustertable.draw();
-    
-
-
-    request = $.ajax({ // Returns a 'deferred' object
+    $.ajax({ // Returns a 'deferred' object
         type: "GET",
         url: "/api/cluster",
         statusCode: {
@@ -25,83 +24,26 @@ function drawClusterTable() {
                 exceptions("403");
             },
             500: function() {
-                exceptions("500", "getting VMs list.");
+                exceptions("500", "getting Clusters list.");
             }
         }
     }).done(function(clusters) {
         clustertable.clear()
         debugger;
         for (clusterData of clusters["cluster_list"]){
-            console.log("%s\n%s\n%s\n%s",
-                        clusterData,
-                        clusterData['name'],
-                        clusterData['status'],
-                        clusterData['uuid'],)
+            // console.log("%s\n%s\n%s\n%s",
+            //             clusterData,
+            //             clusterData['name'],
+            //             clusterData['status'],
+            //             clustertable.columns)
             // clustertable.row.add([{
             //     'name': clusterData['name'],
             //     'status': clusterData['status'],
             //     'uuid': clusterData['uuid']
             // }]).draw()
-            clustertable.row.add([
-                clusterData['name'],
-                clusterData['status'],
-                clusterData['uuid']
-            ]).draw()  //TODO:
+            // NOTE: Adding the whole object- DT only uses the specificed 'data'
+            clustertable.row.add(clusterData).draw(false)  
         }
-        // debugger;
-        // console.log(data)
-        // var clustertable = $('#cluster-list').DataTable( {
-        //     "ajax" : data
-        // });
-
     });
 
 }
-
-
-
-function getClusters(){
-
-    var req = $.get("/api/cluster");
-
-    req.done(formatClusterList)
-};
-
-// function getClusters(){
-
-//     var req = $.get("/api/cluster");
-
-//     req.done(formatClusterList(cluster_list));
-// };
-
-function formatClusterList(rawClusterList){
-    $('#cluster-list').append(": " + rawClusterList); 
-
-    var tab = $('#cluster-table');
-
-    // tab.DataTable({
-    //     "columns": [
-
-    //     ]
-    // })
-
-    tab.clear();
-
-    for (cluster of rawClusterList["data"]){
-    //     cluster['']
-        tab.row.add(cluster)
-    }
-
-    tab.draw(false);
-};
-
-// $('#cluster-list').get("/api/cluster").done(function)
-
-
-// function drawClusterTable(){
-//     clusters_list = $.ajax({
-//         type: "GET",
-//         url: "/api/cluster"
-//     })
-//     return String(typeof clusters_list)
-// }
