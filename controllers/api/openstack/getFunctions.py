@@ -60,8 +60,20 @@ def getNovaInstance():
 
 def getMagnumInstance():
     MAGNUM_VERSION = '1'    #TODO: Change to cherrypy get
+    KEYSTONE_URL = cherrypy.request.config.get("keystone")
+    OPENSTACK_DEFAULT_DOMAIN = cherrypy.request.config.get("openstack_default_domain")
     username = cherrypy.session['username']
-    sess = getOpenStackSession()
+    projectID = cherrypy.request.cookie.get('projectID').value
+
+    projectAuth = v3.Password(
+        auth_url = KEYSTONE_URL,
+        username = username,
+        password = cherrypy.session['password'],
+        user_domain_name = OPENSTACK_DEFAULT_DOMAIN,
+        project_id = projectID,
+        project_domain_name = OPENSTACK_DEFAULT_DOMAIN
+    )
+    sess = session.Session(auth=projectAuth, verify='/etc/ssl/certs/ca-bundle.crt')
 
     try:
         client = mClient.Client(MAGNUM_VERSION, session = sess)
