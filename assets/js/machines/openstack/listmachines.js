@@ -32,10 +32,10 @@ var vmlist = $('#vm-list').DataTable( {
         { data: 'id'}           // Column 13
     ],
     "order": [
-        [4, "desc"]
+        [4, "desc"] // Orders the table on column 4 (the timestamp)
     ],
-    "columnDefs": [
-        {
+    "columnDefs": [ // For each dict in this list, targets=which columsn to apply to
+        {   
             "width": "1px",
             "targets": [5, 6, 7, 8, 9, 10, 11] // Collapse if they don't exist
         },
@@ -121,7 +121,7 @@ function addVNC() {
 var fedid = Cookies.get('fedid');
 
 function drawTable(action) {
-
+    debugger;
     drawTableRequest = $.ajax({ // Returns a 'deferred' object
         type: "GET",
         url: "/api/vm",
@@ -144,6 +144,8 @@ function drawTable(action) {
         vmlist.clear();
 
         for (row of data["data"]) {
+            // edits the returned data construct, then adds that to the DT
+
             //Rename
             name = row['name']
             row['name'] = '<button style="margin-left:5px;float:right;" type="button" class="btn btn-default btn-xs hide-until-hover" title="Rename Machine" onclick="renameDialog(\'' + row['id'] + '\',\'' + name + '\')"><span class="glyphicon glyphicon-pencil" style="vertical-align:middle;margin-top:-2px"></span></button>' + name;

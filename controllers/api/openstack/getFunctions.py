@@ -58,7 +58,7 @@ def getNovaInstance():
         raise cherrypy.HTTPError('500 There\'s been an error when logging you in')
     return client
 
-def getMagnumInstance():
+def getMagnumInstance():    #TODO: Refactor session retrieval into separate method
     MAGNUM_VERSION = '1'    #TODO: Change to cherrypy get
     KEYSTONE_URL = cherrypy.request.config.get("keystone")
     OPENSTACK_DEFAULT_DOMAIN = cherrypy.request.config.get("openstack_default_domain")

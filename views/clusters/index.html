@@ -8,6 +8,13 @@
 {% endif %}
 
 {% block javascript %}
+<!-- Other -->
+<script src="/assets/components/bootstrap/js/bootstrap-select-1.9.4.min.js"></script>
+<script src="/assets/components/jquery/jquery.knob-1.2.11.min.js"></script>
+<script src="/assets/components/jquery/moment.js"></script>
+<!-- DataTables -->
+<script src="/assets/components/jquery/jquery.dataTables-1.10.10.min.js"></script>
+<script src="/assets/components/bootstrap/js/dataTables.bootstrap-1.10.10.min.js"></script>
 <script src="/assets/js/machines/openstack/listclusters.js"></script>
 
 <script>
@@ -18,17 +25,33 @@ var CLOUDPLATFORM = "{{ cloudPlatform }}";
 
 if (CLOUDPLATFORM == "openstack"){
     $(function() {
-        getClusters();
+        drawClusterTable();
     })
 } 
 
 </script>
 {% endblock %}
 
-
 {% block content %}
 
 <h1>This will be the Clusters sections :)</h1>
+
+<div class="tab-content">
+    <div class="tab-pane active">
+        <table id="cluster-list" class="table" cellspacing="0" width="100%">
+            <!-- -->
+            <thead>
+                <tr>
+                    {% include "/machines/%s/clustercolumntitles.html" % cloudPlatform %}
+                </tr>
+            </thead>
+            <!-- -->
+        </table>
+
+    </div>
+</div>
+
+
 <div>
     <p>Context:</p>
     <ul>
