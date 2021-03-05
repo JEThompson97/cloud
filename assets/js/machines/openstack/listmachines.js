@@ -121,7 +121,7 @@ function addVNC() {
 var fedid = Cookies.get('fedid');
 
 function drawTable(action) {
-    debugger;
+    // debugger;
     drawTableRequest = $.ajax({ // Returns a 'deferred' object
         type: "GET",
         url: "/api/vm",

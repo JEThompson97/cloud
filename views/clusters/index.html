@@ -24,6 +24,7 @@ var CLOUDPLATFORM = "{{ cloudPlatform }}";
 if (CLOUDPLATFORM == "openstack"){
     $(function() {
         drawClusterTable();
+        addClusterTemplates();
     })
 } 
 
@@ -37,23 +38,42 @@ if (CLOUDPLATFORM == "openstack"){
 <script src="/assets/components/bootstrap/js/dataTables.bootstrap-1.10.10.min.js"></script>
 
 {% if cloudPlatform == "openstack" %}
-    <script src="/assets/js/machines/openstack/listclusters.js"></script>
+    <!-- Clusters -->
+    <script src="/assets/js/clusters/get-clusters.js"></script>
+    <script src="/assets/js/clusters/create-cluster.js"></script>
+    <script src="/assets/js/clusters/get-cluster-templates.js"></script>
 {% endif %}
 
 {% endblock %}
 
 {% block content %}
-<!-- TODO: Take more functionality from Machines index -->
 <div class="row">
     <div class="col-md-12">
         <h1 class="page-header">Clusters</h1>
+        
+        <!-- Error div? -->
+
+        <div>
+            <button id="new-cluster-btn" type="button" class="btn btn-green" onclick="createClusterDialog()" title="Create New Cluster"> 
+            <!-- NOTE: I've removed the 'disable if openstack'. Saw no reason to wait for existing clusters to load -->
+                <span class="glyphicon glyphicon-plus" style="font-size:15px; margin-right:5px;"></span>New Cluster
+            </button>
+        
+            <span id="loading-clusters">
+                Loading Clusters: <div class="loader"></div>
+            </span>
+        </div>
+
         <div class="tab-content">
             <div class="tab-pane active">
+                <!-- <p id="cluster-waiting-message">Retrieving cluster data...</p> -->
                 <table id="cluster-list" class="table" cellspacing="0" width="100%"></table>
             </div>
         </div>
     </div>
 </div>
+
+{% include "clusters/create-modal.html" %}
 
 <!-- <div>
     <p>Context:</p>

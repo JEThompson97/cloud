@@ -14,23 +14,11 @@ var clustertable = $('#cluster-list').DataTable({
 function drawClusterTable() {
     $.ajax({ // Returns a 'deferred' object
         type: "GET",
-        url: "/api/cluster",
-        statusCode: {
-            400: function(data) {
-                $("#errormessage").html(data.statusText);
-                $("#error").show();
-            },
-            403: function() {
-                exceptions("403");
-            },
-            500: function() {
-                exceptions("500", "getting Clusters list.");
-            }
-        }
-    }).done(function(clusters) {
-        clustertable.clear()
-        debugger;
-        for (clusterData of clusters["cluster_list"]){
+        url: "/api/cluster"
+    }).done(function(cluster_data) {
+        clustertable.clear();
+        // debugger;
+        for (c of cluster_data["cluster_list"]){
             // console.log("%s\n%s\n%s\n%s",
             //             clusterData,
             //             clusterData['name'],
@@ -42,8 +30,10 @@ function drawClusterTable() {
             //     'uuid': clusterData['uuid']
             // }]).draw()
             // NOTE: Adding the whole object- DT only uses the specificed 'data'
-            clustertable.row.add(clusterData).draw(false)  
+            clustertable.row.add(c).draw(false);
         }
+        $('#loading-clusters').hide();
+        // $('#new-cluster-btn').removeAttr('disabled');   // Enable creation once clusters loaded
     });
 
 }
