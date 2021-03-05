@@ -8,23 +8,49 @@
             <div class="modal-body">
                 <!-- <div id="main-creation-error" class="creation-error alert alert-danger text-center" class="alert alert-danger text-center" role="alert"></div> -->
                 <form id="create-cluster-form" class="form-horizontal" role="form" action="/"> <!--NOTE: action -> api call-->
+                    
                     <div class="form-group name-field">
                         <label for="cluster-name" class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-8">
                             <div class="input-group">
-                                <input type="text" id="cluster-name" name="name" class="form-control noEnterSubmit" data-type="text" required />
+                                <input type="text" id="cluster-name" class="form-control noEnterSubmit" data-type="text" required />
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group name-field">
+                    <div class="form-group">
                         <label for="cluster-template" class="col-sm-3 control-label">Cluster Template</label>
                         <div class="col-sm-8">
+                            <span id="loading-cluster-templates">
+                                    Loading Cluster Templates <div class="loader"></div>
+                                </span>
                             <div class="input-group">
+                                
+                            
                                 <select id="cluster-template-select" class="form-control noEnterSubmit" required></select>
                             </div>
                         </div>
+                        
                     </div>
+
+                    <div class="form-group">
+                        <label for="master-count" class="col-sm-3 control-label">Master Count</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="number" id="master-count" class="form-control noEnterSubmit" value="1" min="1" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="node-count" class="col-sm-3 control-label">Node Count</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="number" id="node-count" class="form-control noEnterSubmit" value="1" min="1" required />
+                            </div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">

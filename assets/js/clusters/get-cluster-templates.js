@@ -12,7 +12,7 @@ function addClusterTemplates(){
             //             ct['uuid']);
             selector.add(new Option(ct['name'], ct['uuid']))
         }
-    })
 
-    //Could have a 'loading cluster templates'
+        $('#loading-cluster-templates').hide();
+    });
 }
