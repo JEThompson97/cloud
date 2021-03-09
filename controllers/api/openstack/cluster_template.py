@@ -11,5 +11,5 @@ class ClusterTemplate(object):
 
         cluster_templates = magnumClient.cluster_templates.list()
         cluster_template_list = [ct.to_dict() for ct in cluster_templates]
-        cherrypy.log(f"Cluster Template dicts: {str(cluster_template_list)}")
+
         return {'cluster_template_list' : cluster_template_list}

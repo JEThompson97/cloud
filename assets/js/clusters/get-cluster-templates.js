@@ -14,5 +14,6 @@ function addClusterTemplates(){
         }
 
         $('#loading-cluster-templates').hide();
+        $('#create-cluster-btn').prop('disabled', false); 
     });
 }

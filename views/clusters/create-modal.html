@@ -5,9 +5,10 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Create Cluster</h4>
             </div>
-            <div class="modal-body">
+            <form id="create-cluster-form" class="form-horizontal" role="form"> <!--NOTE: action -> api call-->
+                <div class="modal-body">
                 <!-- <div id="main-creation-error" class="creation-error alert alert-danger text-center" class="alert alert-danger text-center" role="alert"></div> -->
-                <form id="create-cluster-form" class="form-horizontal" role="form" action="/"> <!--NOTE: action -> api call-->
+                
                     
                     <div class="form-group name-field">
                         <label for="cluster-name" class="col-sm-3 control-label">Name</label>
@@ -22,11 +23,9 @@
                         <label for="cluster-template" class="col-sm-3 control-label">Cluster Template</label>
                         <div class="col-sm-8">
                             <span id="loading-cluster-templates">
-                                    Loading Cluster Templates <div class="loader"></div>
-                                </span>
+                                Loading Cluster Templates <div class="loader"></div>
+                            </span>
                             <div class="input-group">
-                                
-                            
                                 <select id="cluster-template-select" class="form-control noEnterSubmit" required></select>
                             </div>
                         </div>
@@ -50,13 +49,20 @@
                             </div>
                         </div>
                     </div>
+                
+                    
+                
+                </div>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="create-cluster-btn" type="button" class="btn btn-blue" onclick="">Create</button>
-            </div>
+                <div class="modal-footer">
+                    <div id="cluster-create-response" align="right"></div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="create-cluster-btn" type="button" class="btn btn-blue" onclick="submitClusterForm()" disabled="">Create</button> <!---->
+                        
+                    
+                   
+                </div>
+            </form>
         </div>
     </div>
 </div>
