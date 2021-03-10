@@ -7,9 +7,24 @@ var clustertable = $('#cluster-list').DataTable({
         { data: 'keypair', title: 'Key Pair' },
         { data: 'master_count', title: 'Masters' },
         { data: 'node_count', title: 'Nodes' },
+        { data: 'config' },
+        { data: 'delete' },
     ],
     "dom": '<"top"f>t<"bottom"lpi><"clear">'    //Puts 'show x entries' dropdown below table
 });
+
+function makeDeleteBtn(uuid){
+    return '<button\
+                id="delete_btn"\
+                title="Delete Cluster"\
+                onclick="deleteCluster(\''+uuid+'\')"\
+            >\
+                <span\
+                    class="glyphicon glyphicon-remove"\
+                    style="vertical-align:middle;margin-top:-2px"\
+                />\
+            </button>'
+} 
 
 function drawClusterTable() {
     $.ajax({ // Returns a 'deferred' object
@@ -30,6 +45,9 @@ function drawClusterTable() {
             //     'uuid': clusterData['uuid']
             // }]).draw()
             // NOTE: Adding the whole object- DT only uses the specificed 'data'
+            c['delete'] = makeDeleteBtn(c['uuid'])
+
+            c['config'] = '<button id="config_btn" title="Download Config File"></button>'
             clustertable.row.add(c).draw(false);
         }
         $('#loading-clusters').hide();
@@ -37,3 +55,4 @@ function drawClusterTable() {
     });
 
 }
+

@@ -1,19 +1,7 @@
 function createClusterDialog() {
     $('#cluster-create-response').hide()
-    // var responseDiv = $('#cluster-create-response');
-    // //responseDiv.empty()
-    
-    // responseDiv.hide()
-    // var createBtn = $('#create-cluster-btn')
-    // createBtn.prop('disabled', false); 
-    // $('#create-cluster-btn').attr('onclick', 'fetch_values(selected_template)');
-
     $('#create-cluster-dialog').modal('show');
 }
-
-// function resetResponse(){
-//     $('#cluster-create-response').hide()
-// }
 
 function showLoading(){
     var responseDiv = $('#cluster-create-response');
@@ -22,29 +10,16 @@ function showLoading(){
     responseDiv.show()
 }
 
-function showError(message){
+function showError(error){
     var responseDiv = $('#cluster-create-response');
-    responseDiv.html(message)
+    responseDiv.html(error.status + ": " + error.statusText)
     responseDiv.css("color", "red")
     responseDiv.show()
 }
 
 function submitClusterForm(){
-    // var createBtn = $('#create-cluster-btn')
-    // createBtn.attr('disabled', ''); 
     showLoading()
-    //var responseDiv = $('#cluster-create-response');
-    // responseDiv.html("Test change");
-    
 
-    //responseDiv.show()
-    
-    // Need to get clusterParams from Form
-    // Could jQuery all the variables.. Maybe there's a better way?
-
-    // var form = $('#create-cluster-form')
-    // var formData = form.serializeArray()
-    // console.log(formData)
     var rawClusterName = $("#cluster-name").val()
 
     var formData = {

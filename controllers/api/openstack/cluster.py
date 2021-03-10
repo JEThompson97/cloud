@@ -25,8 +25,6 @@ class Cluster(object):
         if "" in params.values():
             raise cherrypy.HTTPError('400 Bad parameters')
                   
-
-        
         novaClient = getNovaInstance()  # I believe novaClient needed to retrieve a keypair
 
         try:
@@ -35,6 +33,7 @@ class Cluster(object):
             keyname = ""
        
         magnumClient = getMagnumInstance()
+
         createResponse = magnumClient.clusters.create(
             name = params.get('cName'),
             cluster_template_id = params.get('cTempId'),
@@ -46,4 +45,21 @@ class Cluster(object):
         responseDict = createResponse.to_dict()
         cherrypy.log("Response: " + str(responseDict))
         return responseDict
+    
 
+    @cherrypy.tools.isAuthorised()
+    @cherrypy.tools.json_out()
+    def DELETE(self, id=None):
+        if id == None:
+            raise cherrypy.HTTPError('400 Bad parameters')
+
+        magnumClient = getMagnumInstance()
+    
+        deleteResponse = magnumClient.clusters.delete(id)
+
+        if deleteResponse is not None:
+            responseDict = deleteResponse.to_dict()
+        else:
+            responseDict = {'Confirmation': f"Deletion of {id} requested"}
+        cherrypy.log("Response: " + str(responseDict))
+        return responseDict
