@@ -75,13 +75,16 @@ if cloudPlatform == "openstack":
     from controllers.api.openstack.rename import Rename
     from controllers.api.openstack.cluster import Cluster
     from controllers.api.openstack.cluster_template import ClusterTemplate
+    from controllers.api.openstack.cluster_config import ClusterConfig
 
     api.flavors = Flavors()
     api.projects = Projects()
     api.rename = Rename()
     api.vnc = VNC()
+    
     api.cluster = Cluster()
     api.clustertemplate = ClusterTemplate()
+    api.clusterconfig = ClusterConfig()
 
 # I think this '/api' section is used by the JS (View) to call python scripts (Controller)
 api.vm = VM()

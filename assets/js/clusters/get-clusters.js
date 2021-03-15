@@ -20,7 +20,22 @@ function makeDeleteBtn(uuid){
                 onclick="deleteCluster(\''+uuid+'\')"\
             >\
                 <span\
-                    class="glyphicon glyphicon-remove"\
+                    class="glyphicon glyphicon-trash"\
+                    style="vertical-align:middle;margin-top:-2px"\
+                />\
+            </button>'
+} 
+
+function makeConfigBtn(uuid){
+    url = "\"" + uuid + "\""
+    console.log(url)
+    return '<button\
+                id="config_btn"\
+                title="Get Cluster Config"\
+                onclick="location.href=\'/api/clusterconfig?id=' + encodeURIComponent(url) + '\'"\
+            >\
+                <span\
+                    class="glyphicon glyphicon glyphicon-open-file"\
                     style="vertical-align:middle;margin-top:-2px"\
                 />\
             </button>'
@@ -47,9 +62,10 @@ function drawClusterTable() {
             // NOTE: Adding the whole object- DT only uses the specificed 'data'
             c['delete'] = makeDeleteBtn(c['uuid'])
 
-            c['config'] = '<button id="config_btn" title="Download Config File"></button>'
+            c['config'] = makeConfigBtn(c['uuid'])
             clustertable.row.add(c).draw(false);
         }
+
         $('#loading-clusters').hide();
         // $('#new-cluster-btn').removeAttr('disabled');   // Enable creation once clusters loaded
     });

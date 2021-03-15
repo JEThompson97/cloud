@@ -8,6 +8,10 @@ from novaclient.exceptions import ClientException
 import glanceclient.client as gClient
 import magnumclient.client as mClient
 
+from subprocess import run
+from tempfile import gettempdir
+import re, yaml
+
 def getGlanceInstance():
     GLANCE_VERSION = '2'
     KEYSTONE_URL = cherrypy.request.config.get("keystone")
@@ -81,6 +85,28 @@ def getMagnumInstance():    #TODO: Refactor session retrieval into separate meth
         cherrypy.log('- Error when creating magnum client instance', username, traceback=True)
         raise cherrypy.HTTPError('500 There\'s been an error when logging you in')
     return client
+
+def getClusterConfig(uuid):
+    cli_cmd = f"openstack coe cluster config {uuid}" \
+              f" --dir={gettempdir()} --force" \
+              f" --os-auth-url '{cherrypy.request.config.get('keystone')}'" \
+              f" --os-username '{cherrypy.session['username']}'" \
+              f" --os-password '{cherrypy.session['password']}'" \
+              f" --os-user-domain-name '{cherrypy.request.config.get('openstack_default_domain')}'" \
+              f" --os-project-id '{cherrypy.request.cookie.get('projectID').value}'"
+
+    cp = run(cli_cmd, shell=True, capture_output=True)
+    stdout_str = cp.stdout.decode('utf-8')
+    
+    CCFG_REGEX = r'(?<=KUBECONFIG=).*'
+    config_path = re.search(CCFG_REGEX, stdout_str).group(0)
+
+    with open(config_path) as config_file:
+        #config = config_file.readlines()
+        config = yaml.load(config_file, Loader=yaml.FullLoader)
+
+        print(config)
+        return config
 
 def getOpenStackSession():
     # Getting relevant details from config/global.conf
