@@ -13,11 +13,10 @@ var clustertable = $('#cluster-list').DataTable({
     "dom": '<"top"f>t<"bottom"lpi><"clear">'    //Puts 'show x entries' dropdown below table
 });
 
-function makeDeleteBtn(uuid){
+function makeDeleteBtn(uuid, name){
     return '<button\
-                id="delete_btn"\
                 title="Delete Cluster"\
-                onclick="deleteCluster(\''+uuid+'\')"\
+                onclick="deleteClusterDialog(\''+uuid+'\',\''+name+'\')"\
             >\
                 <span\
                     class="glyphicon glyphicon-trash"\
@@ -29,7 +28,6 @@ function makeDeleteBtn(uuid){
 function makeConfigBtn(uuid){
     quoted_uuid = "\"" + uuid + "\""
     return '<button\
-                id="config_btn"\
                 title="Get Cluster Config"\
                 onclick="location.href=\'/api/clusterconfig?id=' + encodeURIComponent(quoted_uuid) + '\'"\
             >\
@@ -59,7 +57,7 @@ function drawClusterTable() {
             //     'uuid': clusterData['uuid']
             // }]).draw()
             // NOTE: Adding the whole object- DT only uses the specificed 'data'
-            c['delete'] = makeDeleteBtn(c['uuid'])
+            c['delete'] = makeDeleteBtn(c['uuid'], c['name'])
 
             c['config'] = makeConfigBtn(c['uuid'])
             clustertable.row.add(c).draw(false);

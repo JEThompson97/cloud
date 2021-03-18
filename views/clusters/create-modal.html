@@ -38,7 +38,9 @@
                                 Loading Flavours <div class="loader"></div>
                             </span>
                             <div class="input-group">
-                                <select id="master-flavour-select" class="form-control noEnterSubmit" required></select>
+                                <select id="master-flavour-select" class="form-control noEnterSubmit" required>
+                                    <option value="">Template Default</option>
+                                </select>
                             </div>
                         </div>  
                     </div>
@@ -59,7 +61,9 @@
                                 Loading Flavours <div class="loader"></div>
                             </span>
                             <div class="input-group">
-                                <select id="node-flavour-select" class="form-control noEnterSubmit" required></select>
+                                <select id="node-flavour-select" class="form-control noEnterSubmit" required>
+                                    <option value="">Template Default</option>
+                                </select>
                             </div>
                         </div>  
                     </div>
@@ -80,10 +84,7 @@
                 <div class="modal-footer">
                     <div id="cluster-create-response" align="right"></div>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="create-cluster-btn" type="button" class="btn btn-blue" onclick="submitClusterForm()" disabled="">Create</button> <!---->
-                        
-                    
-                   
+                    <button id="create-cluster-btn" type="button" class="btn btn-blue" onclick="submitClusterForm()" disabled="">Create</button>
                 </div>
             </form>
         </div>

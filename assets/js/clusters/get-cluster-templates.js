@@ -4,7 +4,7 @@ function addClusterTemplates(){
         url: "/api/clustertemplate"
     }).done(function(cluster_template_data) {
         var select = $('#cluster-template-select');
-        select.empty();
+        //select.empty();
 
         var selectElement = select[0];
         

@@ -6,8 +6,8 @@ function addFlavours(){
         var masterSelect = $('#master-flavour-select');
         var nodeSelect = $('#node-flavour-select');
         
-        masterSelect.empty();
-        nodeSelect.empty();
+        // masterSelect.empty();
+        // nodeSelect.empty();
 
         var masterSelectElement = masterSelect[0];
         var nodeSelectElement = nodeSelect[0];

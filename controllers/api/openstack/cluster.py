@@ -22,27 +22,36 @@ class Cluster(object):
     def POST(self, **params):
         username = cherrypy.request.cookie.get('fedid').value
 
+        if params['flavor_id'] == "":
+            params.pop('flavor_id')
+        if params['master_flavor_id'] == "":
+            params.pop('master_flavor_id')
+
         if "" in params.values():
             raise cherrypy.HTTPError('400 Bad parameters')
                   
-        novaClient = getNovaInstance()  # I believe novaClient needed to retrieve a keypair
-
+        novaClient = getNovaInstance()
         try:
             keyname = novaClient.keypairs.list()[0].name
         except IndexError:
             keyname = ""
+
+        params['keypair'] = keyname
+
+        cherrypy.log("params: " + str(params))
        
         magnumClient = getMagnumInstance()
+        createResponse = magnumClient.clusters.create(**params)
 
-        createResponse = magnumClient.clusters.create(
-            name = params.get('name'),
-            cluster_template_id = params.get('cluster_template_id'),
-            master_count = params.get('master_count'),
-            node_count = params.get('node_count'),
-            master_flavor_id = params.get('master_flavor_id'),
-            flavor_id = params.get('flavor_id'),
-            keypair = keyname
-        )
+        # createResponse = magnumClient.clusters.create(
+        #     name = params.get('name'),
+        #     cluster_template_id = params.get('cluster_template_id'),
+        #     master_count = params.get('master_count'),
+        #     node_count = params.get('node_count'),
+        #     master_flavor_id = params.get('master_flavor_id'),
+        #     flavor_id = params.get('flavor_id'),
+        #     keypair = keyname
+        # )
 
         responseDict = createResponse.to_dict()
         cherrypy.log("Response: " + str(responseDict))
