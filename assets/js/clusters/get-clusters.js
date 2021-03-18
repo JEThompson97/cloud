@@ -27,12 +27,11 @@ function makeDeleteBtn(uuid){
 } 
 
 function makeConfigBtn(uuid){
-    url = "\"" + uuid + "\""
-    console.log(url)
+    quoted_uuid = "\"" + uuid + "\""
     return '<button\
                 id="config_btn"\
                 title="Get Cluster Config"\
-                onclick="location.href=\'/api/clusterconfig?id=' + encodeURIComponent(url) + '\'"\
+                onclick="location.href=\'/api/clusterconfig?id=' + encodeURIComponent(quoted_uuid) + '\'"\
             >\
                 <span\
                     class="glyphicon glyphicon glyphicon-open-file"\

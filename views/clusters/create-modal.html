@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cluster-template" class="col-sm-3 control-label">Cluster Template</label>
+                        <label for="cluster-template-select" class="col-sm-3 control-label">Cluster Template</label>
                         <div class="col-sm-8">
                             <span id="loading-cluster-templates">
                                 Loading Cluster Templates <div class="loader"></div>
@@ -29,7 +29,18 @@
                                 <select id="cluster-template-select" class="form-control noEnterSubmit" required></select>
                             </div>
                         </div>
-                        
+                    </div>
+
+                    <div class="form-group">
+                        <label for="master-flavour-select" class="col-sm-3 control-label">Master Flavour</label>
+                        <div class="col-sm-8">
+                            <span id="loading-master-flavours">
+                                Loading Flavours <div class="loader"></div>
+                            </span>
+                            <div class="input-group">
+                                <select id="master-flavour-select" class="form-control noEnterSubmit" required></select>
+                            </div>
+                        </div>  
                     </div>
 
                     <div class="form-group">
@@ -39,6 +50,18 @@
                                 <input type="number" id="master-count" class="form-control noEnterSubmit" value="1" min="1" required />
                             </div>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="node-flavour-select" class="col-sm-3 control-label">Node Flavour</label>
+                        <div class="col-sm-8">
+                            <span id="loading-node-flavours">
+                                Loading Flavours <div class="loader"></div>
+                            </span>
+                            <div class="input-group">
+                                <select id="node-flavour-select" class="form-control noEnterSubmit" required></select>
+                            </div>
+                        </div>  
                     </div>
 
                     <div class="form-group">

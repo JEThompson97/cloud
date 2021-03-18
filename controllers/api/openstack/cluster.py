@@ -35,10 +35,12 @@ class Cluster(object):
         magnumClient = getMagnumInstance()
 
         createResponse = magnumClient.clusters.create(
-            name = params.get('cName'),
-            cluster_template_id = params.get('cTempId'),
-            master_count = params.get('cMasters'),
-            node_count = params.get('cNodes'),
+            name = params.get('name'),
+            cluster_template_id = params.get('cluster_template_id'),
+            master_count = params.get('master_count'),
+            node_count = params.get('node_count'),
+            master_flavor_id = params.get('master_flavor_id'),
+            flavor_id = params.get('flavor_id'),
             keypair = keyname
         )
 

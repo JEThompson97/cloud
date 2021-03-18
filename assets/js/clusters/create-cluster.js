@@ -5,14 +5,14 @@ function createClusterDialog() {
 
 function showLoading(){
     var responseDiv = $('#cluster-create-response');
-    responseDiv.html('<span id="loading-cluster-templates">Working on it <div class="loader"></div></span>')
+    responseDiv.html('<span>Working on it <div class="loader"></div></span>')
     responseDiv.css("color", "black")
     responseDiv.show()
 }
 
 function showError(error){
     var responseDiv = $('#cluster-create-response');
-    responseDiv.html(error.status + ": " + error.statusText)
+    responseDiv.html("The backend didn't like that.. " + error.status + ": " + error.statusText)
     responseDiv.css("color", "red")
     responseDiv.show()
 }
@@ -20,13 +20,14 @@ function showError(error){
 function submitClusterForm(){
     showLoading()
 
-    var rawClusterName = $("#cluster-name").val()
-
+    
     var formData = {
-        'cName' : $("#cluster-name").val().trim(),
-        'cTempId' : $("#cluster-template-select").val(),
-        'cMasters' : $("#master-count").val(),
-        'cNodes' : $("#node-count").val(),
+        'name' : $("#cluster-name").val().trim(),
+        'cluster_template_id' : $("#cluster-template-select").val(),
+        'master_count' : $("#master-count").val(),
+        'node_count' : $("#node-count").val(),
+        'master_flavor_id': $("#master-flavour-select").val(),
+        'flavor_id': $("#node-flavour-select").val()
     }
 
     $.ajax({
