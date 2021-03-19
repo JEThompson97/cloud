@@ -25,14 +25,14 @@ function makeDeleteBtn(uuid, name){
             </button>'
 } 
 
-function makeConfigBtn(uuid){
-    quoted_uuid = "\"" + uuid + "\""
+function makeConfigBtn(uuid, name){ //onclick="location.href=\'/api/clusterconfig?id=' + encodeURIComponent(quoted_uuid) + '\'"\
+    //quoted_uuid = "\"" + uuid + "\""
     return '<button\
                 title="Get Cluster Config"\
-                onclick="location.href=\'/api/clusterconfig?id=' + encodeURIComponent(quoted_uuid) + '\'"\
+                onclick="clusterConfigDialog(\''+uuid+'\',\''+name+'\')"\
             >\
                 <span\
-                    class="glyphicon glyphicon glyphicon-open-file"\
+                    class="glyphicon glyphicon glyphicon-save-file"\
                     style="vertical-align:middle;margin-top:-2px"\
                 />\
             </button>'
@@ -47,7 +47,7 @@ function makeDownloadConfigBtn(uuid){
                 download\
             >\
                 <span\
-                    class="glyphicon glyphicon glyphicon-open-file"\
+                    class="glyphicon glyphicon glyphicon-save-file"\
                     style="vertical-align:middle"\
                 />\
             </a>'
@@ -63,7 +63,7 @@ function drawClusterTable() {
         for (c of cluster_data["cluster_list"]){
 
             c['delete'] = makeDeleteBtn(c['uuid'], c['name'])
-            c['config'] = makeDownloadConfigBtn(c['uuid'])
+            c['config'] = makeConfigBtn(c['uuid'], c['name'])
             clustertable.row.add(c).draw(false);
         }
 
