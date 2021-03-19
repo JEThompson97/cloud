@@ -1,10 +1,8 @@
 import cherrypy
 from helpers.jinja import *
 
-
-
 class Clusters(object):
-# TODO: This is copied from Machines - could use some sort of AbstractBaseClass to avoid duplicaiton
+# This is copied from Machines. TODO investigate stripping down
 
     @cherrypy.expose
     @cherrypy.tools.isAuthorised(redirect=True)
