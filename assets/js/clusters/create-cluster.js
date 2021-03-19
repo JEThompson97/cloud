@@ -1,20 +1,25 @@
 function createClusterDialog() {
     $('#cluster-create-response').hide()
+    $('#create-cluster-btn').prop('disabled', false); 
     $('#create-cluster-dialog').modal('show');
+
 }
 
 function showLoading(){
+    $('#create-cluster-btn').prop('disabled', true); 
     var responseDiv = $('#cluster-create-response');
     responseDiv.html('<span>Working on it <div class="loader"></div></span>')
     responseDiv.css("color", "black")
     responseDiv.show()
 }
 
-function showError(error){
+function showError(){
     var responseDiv = $('#cluster-create-response');
-    responseDiv.html("The backend didn't like that.. " + error.status + ": " + error.statusText)
+    responseDiv.html("The backend didn't like that.. ")
     responseDiv.css("color", "red")
     responseDiv.show()
+
+    $('#create-cluster-btn').prop('disabled', false); 
 }
 
 function submitClusterForm(){
@@ -34,12 +39,12 @@ function submitClusterForm(){
         type: "POST",
         url: "/api/cluster",
         data: formData,
-        statusCode: {   // TODO: Look into handling these as 1
-            400: function(data) {
-                showError(data.status + ": " + data.statusText)
+        statusCode: {
+            400: function() {
+                showError()
             },
-            500: function(data) {
-                showError(data.status + ": " + data.statusText)
+            500: function() {
+                showError()
             }
         }
     }).done(function(json_returned){
