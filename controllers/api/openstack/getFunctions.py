@@ -9,7 +9,7 @@ import glanceclient.client as gClient
 import magnumclient.client as mClient
 
 from subprocess import run
-from tempfile import gettempdir
+from tempfile import gettempdir#TemporaryDirectory
 import re, yaml
 
 def getGlanceInstance():
@@ -87,6 +87,8 @@ def getMagnumInstance():    #TODO: Refactor session retrieval into separate meth
     return client
 
 def getClusterConfig(uuid):
+    #tempdir = TemporaryDirectory(prefix='ClusterConfig') 
+
     cli_cmd = f"openstack coe cluster config {uuid}" \
               f" --dir={gettempdir()} --force" \
               f" --os-auth-url '{cherrypy.request.config.get('keystone')}'" \
@@ -97,16 +99,18 @@ def getClusterConfig(uuid):
 
     cp = run(cli_cmd, shell=True, capture_output=True)
     stdout_str = cp.stdout.decode('utf-8')
+    cherrypy.log(stdout_str)
     
     CCFG_REGEX = r'(?<=KUBECONFIG=).*'
     config_path = re.search(CCFG_REGEX, stdout_str).group(0)
+    return config_path
 
-    with open(config_path) as config_file:
-        #config = config_file.readlines()
-        config = yaml.load(config_file, Loader=yaml.FullLoader)
+    # with open(config_path) as config_file:
+    #     #config = config_file.readlines()
+    #     config = yaml.load(config_file, Loader=yaml.FullLoader)
 
-        print(config)
-        return config
+    #     print(config)
+    #     return config
 
 def getOpenStackSession():
     # Getting relevant details from config/global.conf

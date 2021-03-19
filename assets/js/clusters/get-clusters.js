@@ -38,6 +38,21 @@ function makeConfigBtn(uuid){
             </button>'
 } 
 
+function makeDownloadConfigBtn(uuid){
+    quoted_uuid = "\"" + uuid + "\""
+    return '<a\
+                title="Download Cluster Config"\
+                class="btn"\
+                href="/api/clusterconfig?id='+ encodeURIComponent(quoted_uuid) +'"\
+                download\
+            >\
+                <span\
+                    class="glyphicon glyphicon glyphicon-open-file"\
+                    style="vertical-align:middle"\
+                />\
+            </a>'
+} 
+
 function drawClusterTable() {
     $.ajax({ // Returns a 'deferred' object
         type: "GET",
@@ -46,20 +61,9 @@ function drawClusterTable() {
         clustertable.clear();
         // debugger;
         for (c of cluster_data["cluster_list"]){
-            // console.log("%s\n%s\n%s\n%s",
-            //             clusterData,
-            //             clusterData['name'],
-            //             clusterData['status'],
-            //             clustertable.columns)
-            // clustertable.row.add([{
-            //     'name': clusterData['name'],
-            //     'status': clusterData['status'],
-            //     'uuid': clusterData['uuid']
-            // }]).draw()
-            // NOTE: Adding the whole object- DT only uses the specificed 'data'
-            c['delete'] = makeDeleteBtn(c['uuid'], c['name'])
 
-            c['config'] = makeConfigBtn(c['uuid'])
+            c['delete'] = makeDeleteBtn(c['uuid'], c['name'])
+            c['config'] = makeDownloadConfigBtn(c['uuid'])
             clustertable.row.add(c).draw(false);
         }
 
