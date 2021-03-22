@@ -9,7 +9,7 @@ import glanceclient.client as gClient
 import magnumclient.client as mClient
 
 from subprocess import run
-from tempfile import gettempdir#TemporaryDirectory
+from tempfile import gettempdir, TemporaryDirectory
 import re, yaml
 
 def getGlanceInstance():
@@ -86,11 +86,9 @@ def getMagnumInstance():    #TODO: Refactor session retrieval into separate meth
         raise cherrypy.HTTPError('500 There\'s been an error when logging you in')
     return client
 
-def getClusterConfig(uuid):
-    #tempdir = TemporaryDirectory(prefix='ClusterConfig') 
-
+def getClusterConfig(uuid, path):
     cli_cmd = f"openstack coe cluster config {uuid}" \
-              f" --dir={gettempdir()} --force" \
+              f" --dir={path} --force" \
               f" --os-auth-url '{cherrypy.request.config.get('keystone')}'" \
               f" --os-username '{cherrypy.session['username']}'" \
               f" --os-password '{cherrypy.session['password']}'" \
