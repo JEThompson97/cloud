@@ -31,7 +31,7 @@ class Flavors(object):
                 cherrypy.log('- AttributeError while appending flavorList: %s' %(flavor), username, traceback=True)
         # Sorting flavors in ascending order
         # Based on CPU, RAM & disk amounts
-        #flavorList.sort()  # I think this needs more params to work properly in my python version
+        #flavorList.sort()  # NOTE: Commented out due to imcompatibility with python version
 
         return {"data":flavorList}
 
