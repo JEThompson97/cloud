@@ -1,3 +1,7 @@
+/**
+ * Resets and displays the Create Cluster dialog.
+ * The reset includes enabling the create button and removing any response text. 
+ */
 function createClusterDialog() {
     $('#cluster-create-response').hide()
     $('#create-cluster-btn').prop('disabled', false); 
