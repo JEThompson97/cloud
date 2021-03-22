@@ -10,8 +10,7 @@ function deleteCluster(){
     $.ajax({
         type: "DELETE",
         url: "/api/cluster?id=" + uuid
-    }).done(function(json_returned) {
-        console.log(json_returned)
+    }).done(function() {
         $('#delete-cluster-dialog').modal('hide');
         drawClusterTable()
     });

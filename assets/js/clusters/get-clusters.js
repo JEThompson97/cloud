@@ -25,8 +25,7 @@ function makeDeleteBtn(uuid, name){
             </button>'
 } 
 
-function makeConfigBtn(uuid, name){ //onclick="location.href=\'/api/clusterconfig?id=' + encodeURIComponent(quoted_uuid) + '\'"\
-    //quoted_uuid = "\"" + uuid + "\""
+function makeConfigBtn(uuid, name){ 
     return '<button\
                 title="Get Cluster Config"\
                 onclick="clusterConfigDialog(\''+uuid+'\',\''+name+'\')"\
@@ -38,28 +37,12 @@ function makeConfigBtn(uuid, name){ //onclick="location.href=\'/api/clusterconfi
             </button>'
 } 
 
-function makeDownloadConfigBtn(uuid){
-    quoted_uuid = "\"" + uuid + "\""
-    return '<a\
-                title="Download Cluster Config"\
-                class="btn"\
-                href="/api/clusterconfig?id='+ encodeURIComponent(quoted_uuid) +'"\
-                download\
-            >\
-                <span\
-                    class="glyphicon glyphicon glyphicon-save-file"\
-                    style="vertical-align:middle"\
-                />\
-            </a>'
-} 
-
 function drawClusterTable() {
-    $.ajax({ // Returns a 'deferred' object
+    $.ajax({
         type: "GET",
         url: "/api/cluster"
     }).done(function(cluster_data) {
         clustertable.clear();
-        // debugger;
         for (c of cluster_data["cluster_list"]){
 
             c['delete'] = makeDeleteBtn(c['uuid'], c['name'])
@@ -68,7 +51,6 @@ function drawClusterTable() {
         }
 
         $('#loading-clusters').hide();
-        // $('#new-cluster-btn').removeAttr('disabled');   // Enable creation once clusters loaded
     });
 
 }

@@ -1,18 +1,15 @@
-function addFlavours(){
+function addFlavors(){
     $.ajax({
         type: "GET",
         url: "/api/flavors"
-    }).done(function(flavors_data) {
+    }).done(function(json_returned) {
         var masterSelect = $('#master-flavour-select');
         var nodeSelect = $('#node-flavour-select');
-        
-        // masterSelect.empty();
-        // nodeSelect.empty();
 
         var masterSelectElement = masterSelect[0];
         var nodeSelectElement = nodeSelect[0];
         
-        for (f of flavors_data["data"]){
+        for (f of json_returned["data"]){
             masterSelectElement.add(new Option(f['name'], f['name']))   // Flavour names act as ids
             nodeSelectElement.add(new Option(f['name'], f['name']))
         }

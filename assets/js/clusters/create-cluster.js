@@ -25,7 +25,6 @@ function showError(){
 function submitClusterForm(){
     showLoading()
 
-    
     var formData = {
         'name' : $("#cluster-name").val().trim(),
         'cluster_template_id' : $("#cluster-template-select").val(),
@@ -47,9 +46,7 @@ function submitClusterForm(){
                 showError()
             }
         }
-    }).done(function(json_returned){
-        //responseDiv.html(json_returned)
-        console.log(json_returned)
+    }).done(function(){
         $('#create-cluster-dialog').modal('hide');
         drawClusterTable()
     })
