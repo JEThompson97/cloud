@@ -22,6 +22,7 @@ function deleteCluster(){
         url: "/api/cluster?id=" + uuid
     }).done(function() {
         $('#delete-cluster-dialog').modal('hide');
+        // NOTE: It may take Magnum up to ~1min to update the Status to DELETE_IN_PROGRESS
         drawClusterTable()
     });
 }
