@@ -6,6 +6,9 @@ class ClusterTemplate(object):
     @cherrypy.tools.isAuthorised()
     @cherrypy.tools.json_out()
     def GET(self):
+        """
+        Returns data for all available cluster templates as JSON
+        """
         magnumClient = getMagnumInstance()
 
         cluster_templates = magnumClient.cluster_templates.list()

@@ -1,15 +1,19 @@
 /**
- * Resets and displays the Create Cluster dialog.
- * The reset includes enabling the create button and removing any response text. 
+ * Hides the response div.
+ * (Re-)enables the create button.
+ * Displays the Create Cluster modal.
  */
 function createClusterDialog() {
     $('#cluster-create-response').hide()
     $('#create-cluster-btn').prop('disabled', false); 
     $('#create-cluster-dialog').modal('show');
-
 }
 
-function showLoading(){
+/**
+ * Disables the create button
+ * Displays a loading message.
+ */
+function showLoading(){ // TODO: 
     $('#create-cluster-btn').prop('disabled', true); 
     var responseDiv = $('#cluster-create-response');
     responseDiv.html('<span>Working on it <div class="loader"></div></span>')
@@ -17,6 +21,10 @@ function showLoading(){
     responseDiv.show()
 }
 
+/**
+ * Displays an error message
+ * Re-enables the create button.
+ */
 function showError(){
     var responseDiv = $('#cluster-create-response');
     responseDiv.html("The backend didn't like that.. ")
@@ -26,6 +34,13 @@ function showError(){
     $('#create-cluster-btn').prop('disabled', false); 
 }
 
+/**
+ * Displays a loading message.
+ * Extracts the form data.
+ * Removes any whitespace from the name field.
+ * Requests API to create a cluster based on the form data.
+ * Closes the modal and requests a table re-draw when complete.
+ */
 function submitClusterForm(){
     showLoading()
 
@@ -34,8 +49,8 @@ function submitClusterForm(){
         'cluster_template_id' : $("#cluster-template-select").val(),
         'master_count' : $("#master-count").val(),
         'node_count' : $("#node-count").val(),
-        'master_flavor_id': $("#master-flavour-select").val(),
-        'flavor_id': $("#node-flavour-select").val()
+        'master_flavor_id': $("#master-flavor-select").val(),
+        'flavor_id': $("#node-flavor-select").val()
     }
 
     $.ajax({

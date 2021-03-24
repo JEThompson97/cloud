@@ -1,3 +1,8 @@
+/**
+ * Retrieves data for all available cluster templates.
+ * Populates the template dropdown menu in the Create Cluster modal.
+ * Removes the loading message when complete.
+ */
 function addClusterTemplates(){
     ajaxGetRequests.clusterTemplates = $.ajax({
         type: "GET",

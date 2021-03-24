@@ -52,6 +52,12 @@ def getMagnumInstance():
     return client
 
 def getClusterConfig(uuid, path):
+    """
+    Retrieves the config file for the given cluster.
+    Stores the file in the given path.
+    """
+    # NOTE: The CLI command is used here as an equivalent command within a python library
+    #   could not be found. If one is found this method can be replaced.
     cli_cmd = f"openstack coe cluster config {uuid}" \
               f" --dir={path} --force" \
               f" --os-auth-url '{cherrypy.request.config.get('keystone')}'" \
@@ -60,11 +66,10 @@ def getClusterConfig(uuid, path):
               f" --os-user-domain-name '{cherrypy.request.config.get('openstack_default_domain')}'" \
               f" --os-project-id '{cherrypy.request.cookie.get('projectID').value}'"
 
-    cp = run(cli_cmd, shell=True, capture_output=True)
-    stdout_str = cp.stdout.decode('utf-8')
-    cherrypy.log(stdout_str)
+    cp = run(cli_cmd, shell=True, capture_output=True)  # Run the command and captures the 'CompletedProcess'
+    stdout_str = cp.stdout.decode('utf-8')  # Extracts the output as a string. For the command run, this should be the config path.
     
-    CCFG_REGEX = r'(?<=KUBECONFIG=).*'
+    CCFG_REGEX = r'(?<=KUBECONFIG=).*'  # A regex to extract the cluster-config-file from the output
     config_path = re.search(CCFG_REGEX, stdout_str).group(0)
     return config_path
 

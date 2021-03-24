@@ -7,6 +7,9 @@ class Clusters(object):
     @cherrypy.tools.isAuthorised(redirect=True)
     @cherrypy.tools.jinja(template="clusters/index.html")
     def index(self):
+        """
+        Handles requests for the Clusters page
+        """
         try:
             cherrypy.request.cookie.get('fedid').value
         except AttributeError:
