@@ -5,26 +5,21 @@ function addProjects(){
     }).done(function(json_returned){
         var select = $('#project-select');
         var selectElement = select[0];
-
         var currentProj = Cookies.get("projectID");
         
         for (p of json_returned["data"]){
             selectElement.add(new Option(p['name'], p['id']))
-
-            //console.log("p[id]: " + p['id'])
             if (p['id'] === currentProj){
-                //If no project is selected here, the selection gets set to the first value
-                //console.log("select value set to  " + p['name'] + " aka " + currentProj)
                 select.val(currentProj) 
             }
         }
-
-        refreshProjectData();
+        refreshSelectedProject();
     });
 }
 
-function refreshProjectData(){
+function refreshSelectedProject(){
     abortAjaxGetRequests()
+
     clusterTable.clear().draw(false);
     $('#cluster-template-select').empty();
     $('#master-flavor-select').empty();
@@ -40,8 +35,8 @@ function refreshProjectData(){
     date.setTime(date.getTime() + (86400 * 1000));    // Cookie will expire 24 hours after creating
     
     var projectSelection = $('#project-select').val();
-    //console.log("projectSelection: " + projectSelection)
     Cookies.set("projectID", projectSelection, {expires : date, path : '/'});
+
     drawClusterTable();
     addClusterTemplates();
     addFlavors();
@@ -55,7 +50,6 @@ var ajaxGetRequests = {
 
 function abortAjaxGetRequests(){
     for (r in ajaxGetRequests){
-        //console.log(r + " abort")
         ajaxGetRequests[r].abort();
     }
 }

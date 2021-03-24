@@ -13,8 +13,6 @@ var clusterTable = $('#cluster-list').DataTable({
     "dom": '<"top"f>t<"bottom"lpi><"clear">'    //Puts 'show x entries' dropdown below table
 });
 
-// console.log("init ProjectID from: " + Cookies.get("projectID"))
-
 function makeDeleteBtn(uuid, name){
     return '<button\
                 title="Delete Cluster"\
