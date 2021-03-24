@@ -30,7 +30,6 @@ $(function() {
             Cookies.set("session", json["session"], {expires : date, path : '/'});
             Cookies.set("name", json["name"], {expires : date, path : '/'});
             Cookies.set("fedid", json["fedid"], {expires : date, path : '/'});
-            window.location.replace("/machines");
         });
 
         return false;
