@@ -1,5 +1,5 @@
 function addFlavors(){
-    $.ajax({
+    ajaxGetRequests.flavors = $.ajax({
         type: "GET",
         url: "/api/flavors"
     }).done(function(json_returned) {

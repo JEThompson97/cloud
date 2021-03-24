@@ -1,4 +1,4 @@
-var clustertable = $('#cluster-list').DataTable({
+var clusterTable = $('#cluster-list').DataTable({
     "columns": [
         { data: 'name', title: 'Name'},
         { data: 'status', title: 'Status' },
@@ -12,6 +12,8 @@ var clustertable = $('#cluster-list').DataTable({
     ],
     "dom": '<"top"f>t<"bottom"lpi><"clear">'    //Puts 'show x entries' dropdown below table
 });
+
+// console.log("init ProjectID from: " + Cookies.get("projectID"))
 
 function makeDeleteBtn(uuid, name){
     return '<button\
@@ -38,16 +40,16 @@ function makeConfigBtn(uuid, name){
 } 
 
 function drawClusterTable() {
-    $.ajax({
+    ajaxGetRequests.clusters = $.ajax({
         type: "GET",
         url: "/api/cluster"
     }).done(function(cluster_data) {
-        clustertable.clear();
+        clusterTable.clear();
         for (c of cluster_data["cluster_list"]){
 
             c['delete'] = makeDeleteBtn(c['uuid'], c['name'])
             c['config'] = makeConfigBtn(c['uuid'], c['name'])
-            clustertable.row.add(c).draw(false);
+            clusterTable.row.add(c).draw(false);
         }
 
         $('#loading-clusters').hide();

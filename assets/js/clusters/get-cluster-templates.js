@@ -1,5 +1,5 @@
 function addClusterTemplates(){
-    $.ajax({
+    ajaxGetRequests.clusterTemplates = $.ajax({
         type: "GET",
         url: "/api/clustertemplate"
     }).done(function(json_returned) {

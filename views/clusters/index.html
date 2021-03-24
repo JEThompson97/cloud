@@ -14,25 +14,6 @@
 {% endblock %}
 
 {% block javascript %}
-
-<script>
-
-var CLOUDPLATFORM = "{{ cloudPlatform }}";
-
-if (CLOUDPLATFORM == "openstack"){
-    $(function() {
-        drawClusterTable();
-        addClusterTemplates();
-        addFlavors();
-
-        setInterval(function (){
-            drawClusterTable();
-            console.log("Refresh");
-        }, 60000)
-    })
-} 
-
-</script>
 <!-- Other -->
 <script src="/assets/components/bootstrap/js/bootstrap-select-1.9.4.min.js"></script>
 <script src="/assets/components/jquery/jquery.knob-1.2.11.min.js"></script>
@@ -43,12 +24,22 @@ if (CLOUDPLATFORM == "openstack"){
 
 {% if cloudPlatform == "openstack" %}
     <!-- Clusters -->
+    <script src="/assets/js/clusters/get-projects.js"></script>
     <script src="/assets/js/clusters/get-clusters.js"></script>
     <script src="/assets/js/clusters/get-cluster-templates.js"></script>
-    <script src="/assets/js/clusters/get-cluster-config.js"></script>
     <script src="/assets/js/clusters/get-flavors.js"></script>
+    <script src="/assets/js/clusters/get-cluster-config.js"></script>
     <script src="/assets/js/clusters/create-cluster.js"></script>
     <script src="/assets/js/clusters/delete-cluster.js"></script>
+
+    <script>
+        $(function() {
+            addProjects();
+            setInterval(function (){
+                drawClusterTable();
+            }, 60000)
+        })
+    </script>
 {% endif %}
 
 {% endblock %}
@@ -56,7 +47,14 @@ if (CLOUDPLATFORM == "openstack"){
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">Clusters</h1>
+        <h1 class="page-header">Clusters
+        
+        <span class="pull-right">
+            Current Project:
+            <select style="height:34px" id="project-select" class="btn btn-default btn-xs" onchange="refreshProjectData()"></select>
+        </span>
+        
+        </h1>
         
         <div>
             <button id="new-cluster-btn" type="button" class="btn btn-green" onclick="createClusterDialog()" title="Create New Cluster"> 
