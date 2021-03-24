@@ -17,6 +17,7 @@ function makeDeleteBtn(uuid, name){
     return '<button\
                 title="Delete Cluster"\
                 onclick="deleteClusterDialog(\''+uuid+'\',\''+name+'\')"\
+                class="btn btn-danger btn-xs"\
             >\
                 <span\
                     class="glyphicon glyphicon-trash"\
@@ -29,9 +30,10 @@ function makeConfigBtn(uuid, name){
     return '<button\
                 title="Get Cluster Config"\
                 onclick="clusterConfigDialog(\''+uuid+'\',\''+name+'\')"\
+                class="btn btn-blue btn-xs"\
             >\
                 <span\
-                    class="glyphicon glyphicon glyphicon-save-file"\
+                    class="glyphicon glyphicon-save-file"\
                     style="vertical-align:middle;margin-top:-2px"\
                 />\
             </button>'
